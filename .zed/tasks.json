@@ -1,0 +1,10 @@
+[
+    {
+        "label": "build & run",
+        "command": "./build.sh",
+        "use_new_terminal": false,
+        "reveal": "always",
+        "reveal_target": "center",
+        "hide": "on_success"
+    }
+]

@@ -1,0 +1,7 @@
+CompileFlags:
+  Add:
+    - "-std=c17"
+    - "-isystem"
+    - "raylib/include"
+    - "-Wall"
+    - "-Wextra"
