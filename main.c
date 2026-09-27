@@ -6,7 +6,7 @@ struct Sort_State {
     int id;
 };
 
-void selection_sort(struct Sort_State* st, int size, int *nums, int max) {
+void selection_sort(struct Sort_State* st, int size, int* nums, int max) {
     if(st->id < size) {
         int min = max + 1;
         int min_id = -1;
@@ -35,17 +35,17 @@ int main() {
     InitWindow(scr_width, scr_height, "sorted_circle");
     Vector2 start_pos = { (float)scr_width/2, (float)scr_height/2 };
 
-    int max_num = 99;
-    int num_amount = 500;
+    int max_num = 100;
+    int num_amount = 800;
     int nums[num_amount];
-    float length = 360.f;
+    float radius = 360.f;
     float angle_deg = 360.f / (float)num_amount;
 
     for(int i = 0; i < num_amount; i++) {
         nums[i] = GetRandomValue(0, max_num);
     }
 
-    SetTargetFPS(60);
+    SetTargetFPS(120);
 
     while (!WindowShouldClose()) {
         selection_sort(&state, num_amount, nums, max_num);
@@ -53,9 +53,10 @@ int main() {
             ClearBackground(BLACK);
             float cur_angle = 0.f;
             for(int i = 0; i < num_amount; i++) {
-                Vector2 end_pos = {start_pos.x + length * cosf(DEG2RAD * cur_angle), start_pos.y + length * sinf(DEG2RAD * cur_angle)};
+                float start_angle = cur_angle;
+                float end_angle = cur_angle + angle_deg;
+                DrawCircleSector(start_pos, radius, start_angle, end_angle, 1, ColorFromHSV( nums[i] * (360.f / max_num), 1, 1));
                 cur_angle += angle_deg;
-                DrawLineV(start_pos, end_pos, ColorFromHSV( nums[i] * (300.f / max_num), 1, 1));
             }
         EndDrawing();
     }
