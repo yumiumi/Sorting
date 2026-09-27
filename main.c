@@ -25,6 +25,21 @@ void selection_sort(struct Sort_State* st, int size, int* nums, int max) {
     }
 }
 
+void insertion_sort(struct Sort_State* st, int* nums, int size) {
+    if(st->id < size) {
+        int cur_id = st->id;
+        while(cur_id > 0) {
+            if(nums[cur_id] < nums[cur_id - 1]) {
+                int temp = nums[cur_id];
+                nums[cur_id] = nums[cur_id - 1];
+                nums[cur_id - 1] = temp;
+            }
+            cur_id -= 1;
+        }
+        st->id +=1;
+    }
+}
+
 int main() {
     struct Sort_State state;
     state.id = 0;
@@ -48,7 +63,8 @@ int main() {
     SetTargetFPS(120);
 
     while (!WindowShouldClose()) {
-        selection_sort(&state, num_amount, nums, max_num);
+        //selection_sort(&state, num_amount, nums, max_num);
+        insertion_sort(&state, nums, num_amount);
         BeginDrawing();
             ClearBackground(BLACK);
             float cur_angle = 0.f;
