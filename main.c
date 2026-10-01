@@ -40,6 +40,32 @@ void insertion_sort(struct Sort_State* st, int* nums, int size) {
     }
 }
 
+void quick_sort(int* nums, int start, int end) {
+    if(start >= end) return;
+    int border = nums[start + (end - start) / 2];
+    int cur_id = start;
+    int last_id = end;
+    while(cur_id <= last_id) {
+        if(nums[cur_id] >= border) {
+            if(nums[last_id] <= border ) {
+                int temp = nums[last_id];
+                nums[last_id] = nums[cur_id];
+                nums[cur_id] = temp;
+
+                cur_id ++;
+                last_id --;
+            }
+            else {
+                last_id--;
+            }
+        } else {
+            cur_id ++;
+        }
+    }
+    quick_sort(nums, start, last_id);
+    quick_sort(nums, cur_id, end);
+}
+
 int main() {
     struct Sort_State state;
     state.id = 0;
@@ -64,7 +90,8 @@ int main() {
 
     while (!WindowShouldClose()) {
         //selection_sort(&state, num_amount, nums, max_num);
-        insertion_sort(&state, nums, num_amount);
+        //insertion_sort(&state, nums, num_amount);
+        quick_sort(nums, 0, num_amount - 1);
         BeginDrawing();
             ClearBackground(BLACK);
             float cur_angle = 0.f;
